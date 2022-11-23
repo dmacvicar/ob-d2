@@ -1,0 +1,43 @@
+
+* ob-d2
+
+Generate [[https://github.com/terrastruct/d2][d2]] diagrams using org-mode and org-babel.
+
+* Setup
+
+1. install [[https://github.com/terrastruct/d2][d2]]
+2. Until the package is in melpa, you can use straight or similar:
+
+#+begin_src elisp
+(use-package ob-d2
+  :straight (:type git :host github :repo "dmacvicar/ob-d2")
+  :defer t)
+#+end_src
+
+3. Add =d2= to =org-babel-load-languages= or specify =:commands (org-babel-execute:d2)= when loading it.
+
+  #+begin_src elisp
+    (org-babel-do-load-languages
+        'org-babel-load-languages
+        '((d2 . t)
+          (scheme . t)
+          (your-other-langs . t)))
+  #+end_src
+5. Open =org-mode= buffer and create an =org-babel= source block:
+   #+begin_src org
+     ,#+begin_src d2 :file test.png
+      A-->B: Works!
+     ,#+end_src
+   #+end_src
+   #+begin_src d2 :file test.png
+    A-->B: Works!
+   #+end_src
+6. Exporting the =org-mode= document or invoking the =org-babel-execute-src-block= function to generate diagram.
+
+* Supported properties
+
+=file= - Output file. It should be either svg or png.
+
+=theme= - Theme of the chart (number). See available [[https://github.com/terrastruct/d2/tree/master/d2themes][themes]].
+
+=layout= - Layout engine (default is "dagre")
